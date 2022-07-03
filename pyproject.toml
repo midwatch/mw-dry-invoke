@@ -1,7 +1,7 @@
 [tool]
 [tool.poetry]
 name = "mw_dry_invoke"
-version = "0.0.0"
+version = "0.1.0"
 homepage = "https://github.com/midwatch/mw_dry_invoke"
 description = "Common Invoke tasks."
 authors = ["Justin Stout <midwatch@jstout.us>"]
@@ -34,4 +34,4 @@ yapf = "*"
 
 [build-system]
 requires = ["poetry>=0.12"]
-build-backend = "poetry.masonry.api"
+build-backend = "poetry.core.masonry.api"

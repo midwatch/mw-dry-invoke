@@ -1,14 +1,14 @@
 from pathlib import Path
 
-from invoke import Collection
-from invoke import task
-from invoke.exceptions import Failure
+"""Top-level package for MW Dry Invoke."""
 
 from pathlib import Path
 
 from invoke import Collection
 from invoke import task
 from invoke.exceptions import Failure
+
+from mw_dry_invoke import git
 
 GITHUB_USERNAME = "midwatch"
 GITHUB_SLUG = "mw-dry-invoke"
@@ -62,51 +62,6 @@ def lint_pylint(ctx):
     ctx.run(f'poetry run pylint {PYTHON_DIRS_STR}')
 
 
-def scm_init(ctx, gitflow=True):
-    """Init scm repo (if required).
-
-    Raises:
-        Failure: .gitignore does not exist
-
-    Returns:
-        None
-    """
-    if not Path('.gitignore').is_file():
-        raise Failure('.gitignore does not exist')
-
-    is_new_repo = not Path('.git').is_dir()
-    uri_remote = f'git@github.com:{GITHUB_USERNAME}/{GITHUB_SLUG}.git'
-    commit_msg = f'new package from midwatch/cc-py3-pkg ({CC_VERSION})'
-    branches = ['main']
-
-    if is_new_repo:
-        ctx.run('git init')
-        ctx.run('git add .')
-        ctx.run('git commit -m "{commit_msg}"')
-        ctx.run('git branch -M main')
-        ctx.run('git remote add origin {}'.format(uri_remote))
-        ctx.run('git tag -a "v_0.0.0" -m "cookiecutter ref"')
-
-    if gitflow:
-        ctx.run('git flow init -d')
-        ctx.run('git flow config set versiontagprefix v_')
-        branches.append('develop')
-
-    if is_new_repo:
-        for branch in branches:
-            ctx.run(f'git push -u origin {branch}')
-
-        ctx.run('git push --tags')
-
-
-@task
-def scm_push(ctx):
-    """Push all branches and tags to origin."""
-
-    ctx.run('git push --all')
-    ctx.run('git push --tags')
-
-
 @task
 def scm_status(ctx):
     """Show status of remote branches."""
@@ -158,7 +113,7 @@ def format_yapf(ctx, check=False):
 def init_repo(ctx):
     """Initialize freshly cloned repo."""
     ctx.run('poetry install')
-    scm_init(ctx)
+    git.init(ctx)
 
 
 @task(lint_pylint, lint_pycodestyle, lint_pydocstyle)
@@ -188,12 +143,7 @@ def test_pytest(ctx):
 def test(ctx):
     """Run tests"""
 
-
-scm = Collection()
-scm.add_task(scm_push, name="push")
-scm.add_task(scm_status, name="status")
-
 ns = Collection(build, bumpversion, clean, init_repo, lint, release, test)
 ns.add_task(format_yapf, name="format")
 
-ns.add_collection(scm, name="scm")
+ns.add_collection(git.collection, name="scm")
