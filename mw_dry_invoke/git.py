@@ -5,7 +5,7 @@ from invoke import Collection, task
 from invoke.exceptions import Failure
 
 
-def init(ctx, gitflow=True):
+def init(ctx, username, repo_name, gitflow=True):
     """Init scm repo (if required).
 
     Raises:
@@ -18,7 +18,7 @@ def init(ctx, gitflow=True):
         raise Failure('.gitignore does not exist')
 
     is_new_repo = not Path('.git').is_dir()
-    uri_remote = f'git@github.com:{GITHUB_USERNAME}/{GITHUB_SLUG}.git'
+    uri_remote = f'git@github.com:{username}/{repo_name}.git'
     commit_msg = f'new package from midwatch/cc-py3-pkg ({CC_VERSION})'
     branches = ['main']
 
