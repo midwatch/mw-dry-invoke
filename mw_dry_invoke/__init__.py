@@ -20,4 +20,4 @@ def bumpversion(ctx, part):
     if part not in ['major', 'minor', 'patch']:
         raise Failure('Not a valid part')
 
-    ctx.run(f'poetry run bump2version --no-tag {part}')
+    ctx.run(f'bump2version --no-tag {part}')
