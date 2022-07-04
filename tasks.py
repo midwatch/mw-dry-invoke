@@ -8,6 +8,7 @@ from invoke import Collection
 from invoke import task
 from invoke.exceptions import Failure
 
+from mw_dry_invoke import bumpversion
 from mw_dry_invoke import git
 
 GITHUB_USERNAME = "midwatch"
@@ -60,27 +61,6 @@ def lint_pydocstyle(ctx):
 def lint_pylint(ctx):
     """Lint code with pylint"""
     ctx.run(f'poetry run pylint {PYTHON_DIRS_STR}')
-
-
-@task
-def scm_status(ctx):
-    """Show status of remote branches."""
-    ctx.run('git for-each-ref --format="%(refname:short) %(upstream:track)" refs/heads')
-
-
-@task(help={'part': "major, minor, or patch/hotfix"})
-def bumpversion(ctx, part):
-    """Bump project version
-
-    Raises:
-        Failure: part not in [major, minor, patch]
-    """
-    part = 'patch' if part == 'hotfix' else part
-
-    if part not in ['major', 'minor', 'patch']:
-        raise Failure('Not a valid part')
-
-    ctx.run(f'poetry run bump2version --no-tag {part}')
 
 
 @task(pre=[clean_build, clean_python])
