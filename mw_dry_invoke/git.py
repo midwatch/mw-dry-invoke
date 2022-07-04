@@ -1,4 +1,5 @@
 """Common Git tasks."""
+from pathlib import Path
 
 from invoke import Collection, task
 from invoke.exceptions import Failure
