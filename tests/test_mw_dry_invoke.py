@@ -3,7 +3,6 @@
 # pylint: disable=redefined-outer-name
 
 import pytest
-
 from click.testing import CliRunner
 
 from mw_dry_invoke import cli

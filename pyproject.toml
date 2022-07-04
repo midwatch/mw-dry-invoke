@@ -1,7 +1,7 @@
 [tool]
 [tool.poetry]
 name = "mw_dry_invoke"
-version = "0.1.0"
+version = "0.2.0"
 homepage = "https://github.com/midwatch/mw_dry_invoke"
 description = "Common Invoke tasks."
 authors = ["Justin Stout <midwatch@jstout.us>"]
@@ -24,12 +24,12 @@ packages = [
 python = "^3.8"
 
 [tool.poetry.dev-dependencies]
-bump2version = "*"
 isort = "*"
 pycodestyle = "*"
 pydocstyle = "*"
 pylint = "*"
 pytest = "*"
+toml = "*"
 yapf = "*"
 
 [build-system]

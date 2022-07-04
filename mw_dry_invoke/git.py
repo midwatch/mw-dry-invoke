@@ -1,7 +1,6 @@
 """Common Git tasks."""
 
-from invoke import Collection
-from invoke import task
+from invoke import Collection, task
 from invoke.exceptions import Failure
 
 
@@ -53,7 +52,9 @@ def push(ctx):
 @task
 def status(ctx):
     """Show status of remote branches."""
-    ctx.run('git for-each-ref --format="%(refname:short) %(upstream:track)" refs/heads')
+    ctx.run(
+        'git for-each-ref --format="%(refname:short) %(upstream:track)" refs/heads'
+    )
 
 
 collection = Collection()
