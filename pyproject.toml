@@ -24,7 +24,6 @@ packages = [
 python = "^3.8"
 
 [tool.poetry.dev-dependencies]
-bump2version = "*"
 isort = "*"
 pycodestyle = "*"
 pydocstyle = "*"
