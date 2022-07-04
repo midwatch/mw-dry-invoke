@@ -29,6 +29,7 @@ pycodestyle = "*"
 pydocstyle = "*"
 pylint = "*"
 pytest = "*"
+toml = "*"
 yapf = "*"
 
 [build-system]
