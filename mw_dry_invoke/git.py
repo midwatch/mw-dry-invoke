@@ -25,7 +25,7 @@ def init(ctx, username, repo_name, cc_version, gitflow=True):
     if is_new_repo:
         ctx.run('git init')
         ctx.run('git add .')
-        ctx.run('git commit -m "{commit_msg}"')
+        ctx.run(f'git commit -m "{commit_msg}"')
         ctx.run('git branch -M main')
         ctx.run('git remote add origin {}'.format(uri_remote))
         ctx.run('git tag -a "v_0.0.0" -m "cookiecutter ref"')
