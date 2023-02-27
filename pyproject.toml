@@ -1,7 +1,7 @@
 [tool]
 [tool.poetry]
 name = "mw_dry_invoke"
-version = "0.2.6"
+version = "0.2.7"
 homepage = "https://github.com/midwatch/mw_dry_invoke"
 description = "Common Invoke tasks."
 authors = ["Justin Stout <midwatch@jstout.us>"]
